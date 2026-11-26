@@ -19,13 +19,14 @@
       <a class="brand" href="#top"><img src="static/images/favicon.svg" alt="" width="24" height="24">Open Reality View</a>
       <div class="nav-links">
         <a href="#method">Method</a>
+        <a href="#datasets">Datasets</a>
         <a href="#demos">Demos</a>
         <a href="#roadmap">Roadmap</a>
         <a href="https://github.com/OpenRealityView/open-reality-view">GitHub</a>
       </div>
     </nav>
     <div class="hero-body">
-      <p class="eyebrow">Open source · Feed-forward · Generative · Real-time</p>
+      <p class="eyebrow">Open source · Feed-forward · Generative · Multi-dataset · Real-time</p>
       <h1>Open Reality View</h1>
       <p class="subtitle">Feed-forward generative 3D driving visualization from surround cameras.<br>Any virtual camera. Real time. Faithful to what the cameras saw.</p>
       <div class="buttons">
@@ -72,6 +73,51 @@
       </div>
     </section>
 
+    <section class="section" id="datasets">
+      <h2>Datasets</h2>
+      <p class="lead">One data contract, many rigs. ORV trains and evaluates on nuScenes, nuPlan, Waymo, Argoverse 2 and DDAD, plus CARLA for paired ground truth.</p>
+      <p>Every adapter emits the same <code>SurroundSample</code>: synchronized cameras with intrinsics, camera-to-ego extrinsics and ego poses in one convention. The model takes 5 to 8 cameras with any calibration, a chase view means the same thing on every dataset, and results are reported per dataset and leave-one-dataset-out, on rigs and cities the model has never seen.</p>
+      <div class="grid three">
+        <article class="card dataset">
+          <h4><a href="https://www.nuscenes.org/nuscenes">nuScenes</a></h4>
+          <p class="rig">6 cameras · 12 Hz · 1,000 scenes · Boston, Singapore</p>
+          <p>Core training set; rich 3D labels for faithfulness evaluation.</p>
+          <span class="license">CC BY-NC-SA 4.0</span>
+        </article>
+        <article class="card dataset">
+          <h4><a href="https://www.nuscenes.org/nuplan">nuPlan / NAVSIM</a></h4>
+          <p class="rig">8 cameras · 10 Hz · 120 h of sensor data · 4 cities</p>
+          <p>Scale, plus joint rendering and planning and tap-to-go on NAVSIM.</p>
+          <span class="license">CC BY-NC-SA 4.0</span>
+        </article>
+        <article class="card dataset">
+          <h4><a href="https://waymo.com/open/">Waymo Open Perception</a></h4>
+          <p class="rig">5 cameras · 10 Hz · 1,150 scenes · no rear camera</p>
+          <p>Best pseudo ground truth from 5 LiDARs; the missing rear view tests generative completion.</p>
+          <span class="license">Waymo non-commercial</span>
+        </article>
+        <article class="card dataset">
+          <h4><a href="https://www.argoverse.org/av2.html">Argoverse 2 Sensor</a></h4>
+          <p class="rig">7 ring cameras · 20 Hz · 1,000 scenarios · 6 US cities</p>
+          <p>Cross-city generalization on a rig with a portrait front camera.</p>
+          <span class="license">CC BY-NC-SA 4.0</span>
+        </article>
+        <article class="card dataset">
+          <h4><a href="https://github.com/TRI-ML/DDAD">DDAD</a></h4>
+          <p class="rig">6 cameras · 10 Hz · global shutter · US and Japan</p>
+          <p>Dense long-range depth from LiDAR reaching 250 m.</p>
+          <span class="license">CC BY-NC-SA 4.0</span>
+        </article>
+        <article class="card dataset">
+          <h4><a href="https://github.com/carla-simulator/carla">CARLA</a></h4>
+          <p class="rig">Any rig · plus a chase camera · simulated</p>
+          <p>Exact chase-camera ground truth and closed-loop tap-to-go.</p>
+          <span class="license">MIT code · CC-BY assets</span>
+        </article>
+      </div>
+      <p class="note">Adapter progress is tracked in the <a href="https://github.com/OpenRealityView/open-reality-view/blob/main/ROADMAP.md">roadmap</a>. Most of these datasets allow non-commercial use only; every released checkpoint states the license of its training data.</p>
+    </section>
+
     <section class="section" id="demos">
       <h2>Demos</h2>
       <p>Videos are added as milestones land.</p>
@@ -98,7 +144,7 @@
     <section class="section" id="roadmap">
       <h2>Roadmap</h2>
       <ol class="timeline">
-        <li class="active"><span class="tag">M0 · in progress</span><h3>Task definition and evaluation</h3><p>Data contract, virtual camera family, faithfulness metrics.</p></li>
+        <li class="active"><span class="tag">M0 · in progress</span><h3>Task definition and evaluation</h3><p>Data contract, dataset adapters, virtual camera family, faithfulness metrics.</p></li>
         <li><span class="tag">M1</span><h3>Pseudo ground-truth factory</h3><p>OmniRe reconstruction, chase-view rendering with per-pixel confidence, CARLA pairs.</p></li>
         <li><span class="tag">M2</span><h3>Geometry-first renderer v0</h3><p>Feed-forward Gaussians supervised on real and virtual views.</p></li>
         <li><span class="tag">M3</span><h3>Generative refinement v1</h3><p>One-step decoder with adversarial training and video-diffusion distillation.</p></li>

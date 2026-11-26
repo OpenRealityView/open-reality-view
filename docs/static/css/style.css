@@ -109,6 +109,7 @@ figure { margin: 0; }
 figcaption strong { color: var(--text); }
 .grid { display: grid; gap: 20px; }
 .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .card { padding: 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
 .card p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -120,6 +121,23 @@ figcaption strong { color: var(--text); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+/* Datasets */
+.dataset { display: flex; flex-direction: column; gap: 8px; }
+.dataset h4 { margin: 0; }
+.dataset h4 a { color: var(--text); }
+.card .rig { color: #93c5fd; font-size: 13.5px; }
+.dataset .license {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 2px 10px;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.note { margin-top: 16px; color: var(--muted); font-size: 14.5px; }
+:not(pre) > code { padding: 1px 6px; border-radius: 6px; background: var(--surface); font-size: 0.9em; }
 
 /* Roadmap */
 .timeline { margin: 0; padding: 0; list-style: none; border-left: 2px solid var(--border); }
@@ -182,6 +200,6 @@ code { font-family: "JetBrains Mono", Consolas, Menlo, monospace; }
 .footer { padding: 28px 24px 48px; color: var(--muted); font-size: 13.5px; text-align: center; }
 
 @media (max-width: 860px) {
-  .grid.two, .grid.four { grid-template-columns: 1fr; }
+  .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
   .nav-links a:not(:last-child) { display: none; }
 }

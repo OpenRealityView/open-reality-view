@@ -2,18 +2,23 @@
 
 Milestones build on each other. Each one ends with an acceptance check.
 
-## M0 · Task definition and evaluation
+## M0 · Task definition, data and evaluation
 
 - [x] Data contract: N cameras × T past frames, intrinsics, camera-to-ego extrinsics, ego poses (`orv/data/sample.py`)
 - [x] Virtual camera family: 3–15 m up, 5–20 m back, 15–60° pitch, FOV range, plus top-down (`orv/geometry.py`)
-- [ ] Fix the input setting per dataset: camera set, history length, resolution
-- [ ] Evaluation scripts for all [metrics](#metrics) on real and virtual views
+- [ ] Dataset adapters producing `SurroundSample`, each with a per-dataset config (camera set, history length, resolution) and a LiDAR-to-camera reprojection check:
+  - [ ] nuScenes
+  - [ ] nuPlan / OpenScene (NAVSIM)
+  - [ ] Waymo Open Perception
+  - [ ] Argoverse 2 Sensor
+  - [ ] DDAD
+- [ ] Evaluation scripts for all [metrics](#metrics) on real and virtual views, per dataset and leave-one-dataset-out
 
-Acceptance: the evaluation runs end to end for a baseline on real and virtual views.
+Acceptance: every adapter passes the reprojection check, and the evaluation runs end to end for a baseline on real and virtual views.
 
 ## M1 · Pseudo ground-truth factory
 
-- [ ] Per-clip DriveStudio / OmniRe reconstruction, Waymo first
+- [ ] Per-clip DriveStudio / OmniRe reconstruction: Waymo first, then nuScenes, nuPlan and Argoverse 2 (supported by DriveStudio) and DDAD (needs a converter)
 - [ ] Render random chase views along the ego trajectory: RGB, depth, semantics, instances and per-pixel confidence (number of observing views, alpha)
 - [ ] Remove reconstruction artifacts with Difix3D+-style refinement
 - [ ] Filter clips by held-out-frame PSNR
@@ -26,8 +31,9 @@ Acceptance: pseudo ground truth meets the threshold on held-out real views; elev
 - [ ] Encoder → temporal fusion → Gaussian head (color, latent features, velocity)
 - [ ] Real cameras: photometric and LiDAR depth losses
 - [ ] Virtual cameras: pseudo ground-truth supervision, weighted by confidence
+- [ ] Multi-dataset training: per-dataset batches interleaved across all adapters
 
-Acceptance: real-view reconstruction reaches the target; virtual-view geometry is correct (blur is acceptable).
+Acceptance: real-view reconstruction reaches the target; virtual-view geometry is correct (blur is acceptable); one model trained on the dataset mix is no worse than per-dataset models.
 
 ## M3 · Generative refinement v1
 
@@ -68,6 +74,7 @@ Acceptance: planning score (PDMS) does not drop; report tap-to-go success rate, 
 | Real-view fidelity | PSNR / SSIM / LPIPS on the current frame, a future frame (t + 0.5 s) and held-out cameras |
 | Virtual-view quality | PSNR / LPIPS against pseudo ground truth; FID / FVD |
 | **Faithfulness** (primary) | Run detection and segmentation on the render and compare with ground truth projected into the virtual camera: per-class recall and precision (pedestrians and cyclists reported separately), hallucination rate, miss rate, NTA-IoU / NTL-IoU |
+| Cross-dataset generalization | Leave-one-dataset-out: train on the other datasets, evaluate on the held-out rig and cities |
 | Temporal stability | Warp error, flicker |
 | Efficiency | ms per frame, GFLOPs, memory, compared with explicit-head baselines |
 | Interaction | Tap-to-go success rate, goal error, collision / off-road rate (CARLA closed loop or NAVSIM v2) |
@@ -79,4 +86,4 @@ Acceptance: planning score (PDMS) does not drop; report tap-to-go success rate, 
 - Supervision: OmniRe pseudo ground truth, Difix3D+ cleanup, adversarial loss
 - Intent: projected overlays
 - Acceptance: held-out-view LPIPS, virtual-view NTA-IoU and pedestrian recall, ≥ 20 FPS on one RTX 4090-class GPU
-- Next: NAVSIM + GoalFlow for joint planning and tap-to-go
+- Next: multi-dataset training on nuScenes, nuPlan, Argoverse 2 and DDAD; NAVSIM + GoalFlow for joint planning and tap-to-go

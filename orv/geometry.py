@@ -1,8 +1,8 @@
 """Cameras, the virtual chase-camera family and depth-based warping.
 
-Conventions: the ego frame is x forward, y left, z up with its origin on the ground. Cameras use
-the OpenCV convention (x right, y down, z forward), which is also what gsplat expects. Poses are
-4x4 rigid transforms named ``<from>_to_<to>``.
+Conventions: the ego frame is x forward, y left, z up with its origin on the ground below the
+rear-axle center. Cameras use the OpenCV convention (x right, y down, z forward), which is also
+what gsplat expects. Poses are 4x4 rigid transforms named ``<from>_to_<to>``.
 """
 
 from __future__ import annotations

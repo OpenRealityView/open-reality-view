@@ -30,6 +30,7 @@ Open Reality View（ORV）是一个独立的开源项目，目标是用公开数
 - **前馈**：一次前向推理把环视视频变成 3D 锚定的场景，无需逐场景优化。
 - **生成式**：轻量的单步解码器把场景的低分辨率渲染变成干净的全分辨率画面，并补全任何相机都没有看到的区域。
 - **自由视角**：自车周围和上方的任意虚拟相机，包括俯视。
+- **多数据集**：nuScenes、nuPlan、Waymo、Argoverse 2、DDAD 和仿真数据共用一套数据契约，支持 5 到 8 路相机和任意标定。
 - **忠实**：物体是否存在、几何形状都由 3D 锚点决定，生成器从不"造物"。忠实度是首要指标。
 - **实时**：目标是单张消费级 GPU 上 ≥ 20 FPS。
 
@@ -43,6 +44,26 @@ Open Reality View（ORV）是一个独立的开源项目，目标是用公开数
 | 4. 交互 | 规划路径、转向箭头和泊车 pin 在 3D 中绘制并做深度测试；点击画面 → 深度 → 3D 目标 | NAVSIM、GoalFlow |
 
 虚拟视角处没有真实相机，因此训练信号组合了：真实相机上的光度自监督、离线 4D 重建伪真值（DriveStudio / OmniRe）、仿真配对数据（CARLA）和视频扩散教师蒸馏，并按每像素置信度加权。里程碑和评测指标见[路线图](ROADMAP.md)。
+
+## 支持的数据集
+
+ORV 从设计上就面向多数据集。每个适配器都把数据集转换成统一的 `SurroundSample` 数据契约：N 路同步相机 × T 帧，附带内参、相机到自车的外参和自车位姿，并采用同一套约定（自车坐标系 x 向前、y 向左、z 向上，原点在后轴中心正下方的地面；相机为 OpenCV 约定；单位为米和秒）。适配器之后的所有模块都与具体数据集无关。
+
+| 数据集 | 相机 | 规模 | 在 ORV 中的作用 | 许可证 |
+|---|---|---|---|---|
+| [nuScenes](https://www.nuscenes.org/nuscenes) | 6 × 1600×900 @ 12 Hz | 1,000 个场景 × 20 s，波士顿、新加坡 | 主力训练集；丰富的 3D 标注用于忠实度评测 | CC BY-NC-SA 4.0 |
+| [nuPlan](https://www.nuscenes.org/nuplan) / [NAVSIM](https://github.com/autonomousvision/navsim) | 8 路 @ 10 Hz | 约 1,200 h 驾驶数据，其中 120 h 含传感器数据，4 座城市 | 数据规模；渲染与规划联合训练、点击即达 | CC BY-NC-SA 4.0 |
+| [Waymo Open Perception](https://waymo.com/open/) | 5 路 @ 10 Hz，无后视相机 | 1,150 个场景 × 20 s | 伪真值质量最好（5 个 LiDAR）；缺少后视可检验生成式补全 | Waymo 非商业许可 |
+| [Argoverse 2 Sensor](https://www.argoverse.org/av2.html) | 7 路环视 2048×1550 @ 20 Hz | 1,000 个场景 × 15 s，美国 6 座城市 | 跨城市泛化；前视相机为竖幅 | CC BY-NC-SA 4.0 |
+| [DDAD](https://github.com/TRI-ML/DDAD) | 6 × 1936×1216 @ 10 Hz，全局快门 | 200 个场景（训练 150 / 验证 50），美国和日本 | 远距离稠密深度（LiDAR 最远 250 m） | CC BY-NC-SA 4.0 |
+| [CARLA](https://github.com/carla-simulator/carla) | 任意相机配置 + 追尾相机 | 仿真 | 追尾视角精确真值；点击即达闭环评测 | MIT（代码）、CC-BY（资产） |
+
+- **任意相机配置**：升维网络按相机像素预测高斯并在 3D 中融合，5、6、7、8 路相机和任意标定都走同一个网络。虚拟相机定义在自车坐标系下，同一个追尾视角在各数据集上含义一致。
+- **混合训练**：按数据集分别采样 batch 并交替训练，相机数量和分辨率不同的数据共同训练一个模型。
+- **跨数据集评测**：指标按数据集分别报告，并做留一数据集评测：在其余数据集上训练，在未见过的相机配置和城市上测试。
+- **许可证**：上述数据集大多仅允许非商业使用。权重按训练数据组合分别发布，并继承其中最严格的条款；用 Waymo 训练的权重只按 Waymo Dataset License 分享。
+
+LiDAR 只作训练期监督，推理只用相机。适配器进度见[路线图](ROADMAP.md)（M0）。
 
 ## 目录结构
 
@@ -87,10 +108,6 @@ ORV 会复现或依赖下列项目。非宽松许可证的代码只作为参考�
 | [Self-Forcing](https://github.com/guandeh17/Self-Forcing) | 自回归蒸馏方法 | Apache-2.0 |
 | [NAVSIM](https://github.com/autonomousvision/navsim) | 规划评测基准 | Apache-2.0 |
 | [GoalFlow](https://github.com/YvanYin/GoalFlow) | 目标条件规划 | Apache-2.0 |
-
-## 数据
-
-计划使用 Waymo Open、nuScenes、Argoverse 2 和 NAVSIM（OpenScene / nuPlan）做训练与评测，用 CARLA 生成带追尾相机真值的配对数据。LiDAR 只作训练期监督，推理只用相机。大多数驾驶数据集**仅允许非商业使用**，训练前以及分享由其训练出的权重前，请逐一确认许可证。
 
 ## 参与贡献
 
