@@ -1,0 +1,28 @@
+# MVP from ROADMAP.md: 5 cameras x 4 frames (Waymo-like), DINOv2-S, 16-d latent,
+# gsplat at 1/4 resolution, small U-Net decoder. Needs CUDA and gsplat; the DINOv2
+# weights are downloaded through torch.hub on first use.
+model:
+  encoder: dinov2_vits14
+  latent_dim: 16
+  near: 0.5
+  far: 200.0
+  render_scale: 4
+  decoder_width: 64
+  renderer: gsplat
+input:
+  batch: 1
+  frames: 4
+  cameras: 5
+  height: 320
+  width: 480
+output:
+  views: 1
+  height: 720
+  width: 1280
+virtual_camera:
+  up: [3.0, 15.0]
+  back: [5.0, 20.0]
+  pitch_deg: [15.0, 60.0]
+  yaw_deg: [-30.0, 30.0]
+  fov_deg: [50.0, 90.0]
+  top_down_prob: 0.1

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Reality View: Feed-forward Generative 3D Driving Visualization</title>
+  <meta name="description" content="Open-source feed-forward generative 3D driving visualization from surround cameras: any virtual camera, real time, faithful to what the cameras saw.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Open Reality View">
+  <meta property="og:description" content="Feed-forward generative 3D driving visualization from surround cameras, built in the open.">
+  <meta property="og:url" content="https://openrealityview.github.io/open-reality-view/">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="nav">
+      <a class="brand" href="#top"><img src="static/images/favicon.svg" alt="" width="24" height="24">Open Reality View</a>
+      <div class="nav-links">
+        <a href="#method">Method</a>
+        <a href="#demos">Demos</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://github.com/OpenRealityView/open-reality-view">GitHub</a>
+      </div>
+    </nav>
+    <div class="hero-body">
+      <p class="eyebrow">Open source · Feed-forward · Generative · Real-time</p>
+      <h1>Open Reality View</h1>
+      <p class="subtitle">Feed-forward generative 3D driving visualization from surround cameras.<br>Any virtual camera. Real time. Faithful to what the cameras saw.</p>
+      <div class="buttons">
+        <a class="btn primary" href="https://github.com/OpenRealityView/open-reality-view">Code</a>
+        <a class="btn" href="#demos">Demos</a>
+        <a class="btn" href="https://github.com/OpenRealityView/open-reality-view/blob/main/ROADMAP.md">Roadmap</a>
+        <span class="btn disabled" aria-disabled="true">Paper · soon</span>
+        <span class="btn disabled" aria-disabled="true">Models · soon</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="teaser">
+      <!-- To publish the teaser, add static/videos/teaser.mp4 and static/images/teaser.jpg, then replace the div with:
+           <video class="media" src="static/videos/teaser.mp4" poster="static/images/teaser.jpg" autoplay muted loop playsinline></video> -->
+      <div class="media placeholder" role="img" aria-label="Teaser video coming soon"><span>Teaser video coming soon</span></div>
+      <p class="caption">Surround cameras in, a free-viewpoint generative view of the scene out, in one feed-forward pass.</p>
+    </section>
+
+    <section class="section" id="overview">
+      <h2>Overview</h2>
+      <p class="lead">With FSD v15, Tesla introduced Reality View: a real-time generative view of the car's surroundings, streamed from a virtual camera above the vehicle and rendered by the same end-to-end network that drives it. Open Reality View builds this class of system in the open, from public data and open components.</p>
+      <p>A feed-forward network lifts surround-camera video into 3D Gaussians in a single pass. The Gaussians are projected into any virtual camera at low resolution, and a light one-step generative decoder turns that render into a clean, temporally stable frame, filling in what no camera saw. Geometry and object existence always come from the 3D anchors; the generator only paints appearance, so the view stays faithful to the road.</p>
+    </section>
+
+    <section class="section" id="method">
+      <h2>Method</h2>
+      <figure class="figure">
+        <img src="static/images/pipeline.svg" width="1200" height="340" alt="Pipeline: surround cameras, image encoder, feed-forward 4D Gaussians, virtual-camera projection, one-step generative decoder, reality view">
+      </figure>
+      <div class="grid four">
+        <article class="card"><p class="step">1 · Lift</p><p>N cameras × T frames pass through an image encoder; every feature cell becomes a pixel-aligned Gaussian with depth, color, latent features and velocity.</p></article>
+        <article class="card"><p class="step">2 · Project</p><p>The Gaussians are rasterized into the virtual camera at ¼ resolution, giving features, depth and an alpha map of what was observed.</p></article>
+        <article class="card"><p class="step">3 · Generate</p><p>A one-step decoder upsamples the render, completes unobserved regions and stays stable by reusing the previous frame warped by ego motion.</p></article>
+        <article class="card"><p class="step">4 · Interact</p><p>Planned path, turn chevrons and parking pins are drawn in 3D with depth testing; a tap on the view becomes a 3D goal for the planner.</p></article>
+      </div>
+      <h3 class="subhead">Design principles</h3>
+      <div class="grid four">
+        <article class="card"><h4>Faithful first</h4><p>Objects exist because the 3D representation says so, never because the generator invented them. Detect-on-render recall and hallucination rate are headline metrics.</p></article>
+        <article class="card"><h4>Feed-forward</h4><p>No per-scene optimization: one pass from cameras to 3D, so it runs online on streets it has never seen.</p></article>
+        <article class="card"><h4>Real-time</h4><p>Low-resolution feature rendering plus one-step decoding, targeting ≥ 20 FPS on a single consumer GPU.</p></article>
+        <article class="card"><h4>Open</h4><p>Public datasets, open components and Apache-2.0 code, with every non-commercial asset labeled.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="demos">
+      <h2>Demos</h2>
+      <p>Videos are added as milestones land.</p>
+      <div class="grid two">
+        <figure>
+          <div class="media placeholder"><span>Coming soon</span></div>
+          <figcaption><strong>Chase view.</strong> Feed-forward render of a held-out driving sequence from a virtual chase camera.</figcaption>
+        </figure>
+        <figure>
+          <div class="media placeholder"><span>Coming soon</span></div>
+          <figcaption><strong>Free viewpoint.</strong> Orbit, zoom and top-down views generated from the same camera input.</figcaption>
+        </figure>
+        <figure>
+          <div class="media placeholder"><span>Coming soon</span></div>
+          <figcaption><strong>3D only vs. generative decoder.</strong> The raw Gaussian render next to the decoded frame.</figcaption>
+        </figure>
+        <figure>
+          <div class="media placeholder"><span>Coming soon</span></div>
+          <figcaption><strong>Intent and tap-to-go.</strong> Planned path, turn chevrons and parking pin, depth-tested against the scene.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <h2>Roadmap</h2>
+      <ol class="timeline">
+        <li class="active"><span class="tag">M0 · in progress</span><h3>Task definition and evaluation</h3><p>Data contract, virtual camera family, faithfulness metrics.</p></li>
+        <li><span class="tag">M1</span><h3>Pseudo ground-truth factory</h3><p>OmniRe reconstruction, chase-view rendering with per-pixel confidence, CARLA pairs.</p></li>
+        <li><span class="tag">M2</span><h3>Geometry-first renderer v0</h3><p>Feed-forward Gaussians supervised on real and virtual views.</p></li>
+        <li><span class="tag">M3</span><h3>Generative refinement v1</h3><p>One-step decoder with adversarial training and video-diffusion distillation.</p></li>
+        <li><span class="tag">M4</span><h3>Real time</h3><p>≥ 20 FPS on one GPU: low-resolution features, quantization, static-scene caching.</p></li>
+        <li><span class="tag">M5</span><h3>Planning, intent and interaction</h3><p>Shared backbone with an end-to-end planner on NAVSIM; tap-to-go.</p></li>
+        <li><span class="tag">M6</span><h3>Ablations</h3><p>One rendering head vs. explicit perception heads; does rendering help planning?</p></li>
+      </ol>
+    </section>
+
+    <section class="section" id="built-on">
+      <h2>Built on open source</h2>
+      <div class="chips">
+        <a href="https://github.com/nerfstudio-project/gsplat">gsplat</a>
+        <a href="https://github.com/facebookresearch/dinov2">DINOv2</a>
+        <a href="https://github.com/NVlabs/GaussianSTORM">STORM</a>
+        <a href="https://github.com/ziyc/drivestudio">DriveStudio / OmniRe</a>
+        <a href="https://github.com/nv-tlabs/Difix3D">Difix3D+</a>
+        <a href="https://github.com/guandeh17/Self-Forcing">Self-Forcing</a>
+        <a href="https://github.com/autonomousvision/navsim">NAVSIM</a>
+        <a href="https://github.com/YvanYin/GoalFlow">GoalFlow</a>
+      </div>
+    </section>
+
+    <section class="section" id="citation">
+      <h2>Citation</h2>
+      <pre><code>@misc{openrealityview2026,
+  title        = {Open Reality View: Feed-forward Generative 3D Driving Visualization},
+  author       = {{Open Reality View contributors}},
+  year         = {2026},
+  howpublished = {\url{https://github.com/OpenRealityView/open-reality-view}}
+}</code></pre>
+    </section>
+
+    <p class="notice">Open Reality View is an independent open-source research project. It is not affiliated with, endorsed by or sponsored by Tesla, Inc. Tesla, FSD and Reality View are mentioned only to describe the product that inspired this work; all trademarks belong to their owners. This is research software and must not be used to operate a vehicle.</p>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Open Reality View contributors · Code under <a href="https://github.com/OpenRealityView/open-reality-view/blob/main/LICENSE">Apache-2.0</a> · <a href="https://github.com/OpenRealityView">GitHub</a></p>
+  </footer>
+</body>
+</html>
