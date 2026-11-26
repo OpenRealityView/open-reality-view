@@ -64,7 +64,7 @@
   <!-- bottom row -->
   <rect x="25" y="250" width="562" height="66" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>
   <text x="45" y="273" font-size="13.5" font-weight="600" fill="#0f172a">Training data and supervision</text>
-  <text x="45" y="292" font-size="12.5" fill="#475569">nuScenes · nuPlan · Waymo · Argoverse 2 · DDAD · CARLA (paired chase views)</text>
+  <text x="45" y="292" font-size="12.5" fill="#475569">nuScenes · nuPlan · Waymo · Argoverse 2 · DDAD · KITTI</text>
   <text x="45" y="308" font-size="12.5" fill="#475569">real-camera photometric loss · OmniRe pseudo ground truth · video-diffusion distillation</text>
 
   <rect x="613" y="250" width="170" height="66" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>

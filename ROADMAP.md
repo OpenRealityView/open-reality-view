@@ -12,13 +12,14 @@ Milestones build on each other. Each one ends with an acceptance check.
   - [ ] Waymo Open Perception
   - [ ] Argoverse 2 Sensor
   - [ ] DDAD
+  - [ ] KITTI
 - [ ] Evaluation scripts for all [metrics](#metrics) on real and virtual views, per dataset and leave-one-dataset-out
 
 Acceptance: every adapter passes the reprojection check, and the evaluation runs end to end for a baseline on real and virtual views.
 
 ## M1 · Pseudo ground-truth factory
 
-- [ ] Per-clip DriveStudio / OmniRe reconstruction: Waymo first, then nuScenes, nuPlan and Argoverse 2 (supported by DriveStudio) and DDAD (needs a converter)
+- [ ] Per-clip DriveStudio / OmniRe reconstruction: Waymo first, then nuScenes, nuPlan, Argoverse 2 and KITTI (supported by DriveStudio) and DDAD (needs a converter)
 - [ ] Render random chase views along the ego trajectory: RGB, depth, semantics, instances and per-pixel confidence (number of observing views, alpha)
 - [ ] Remove reconstruction artifacts with Difix3D+-style refinement
 - [ ] Filter clips by held-out-frame PSNR
@@ -86,4 +87,4 @@ Acceptance: planning score (PDMS) does not drop; report tap-to-go success rate, 
 - Supervision: OmniRe pseudo ground truth, Difix3D+ cleanup, adversarial loss
 - Intent: projected overlays
 - Acceptance: held-out-view LPIPS, virtual-view NTA-IoU and pedestrian recall, ≥ 20 FPS on one RTX 4090-class GPU
-- Next: multi-dataset training on nuScenes, nuPlan, Argoverse 2 and DDAD; NAVSIM + GoalFlow for joint planning and tap-to-go
+- Next: multi-dataset training on nuScenes, nuPlan, Argoverse 2, DDAD and KITTI; NAVSIM + GoalFlow for joint planning and tap-to-go

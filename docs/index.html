@@ -75,8 +75,8 @@
 
     <section class="section" id="datasets">
       <h2>Datasets</h2>
-      <p class="lead">One data contract, many rigs. ORV trains and evaluates on nuScenes, nuPlan, Waymo, Argoverse 2 and DDAD, plus CARLA for paired ground truth.</p>
-      <p>Every adapter emits the same <code>SurroundSample</code>: synchronized cameras with intrinsics, camera-to-ego extrinsics and ego poses in one convention. The model takes 5 to 8 cameras with any calibration, a chase view means the same thing on every dataset, and results are reported per dataset and leave-one-dataset-out, on rigs and cities the model has never seen.</p>
+      <p class="lead">One data contract, many rigs. ORV trains and evaluates on nuScenes, nuPlan, Waymo, Argoverse 2, DDAD and KITTI.</p>
+      <p>Every adapter emits the same <code>SurroundSample</code>: synchronized cameras with intrinsics, camera-to-ego extrinsics and ego poses in one convention. The model takes any calibrated rig, from a front stereo pair to 8 surround cameras, a chase view means the same thing on every dataset, and results are reported per dataset and leave-one-dataset-out, on rigs and cities the model has never seen.</p>
       <div class="grid three">
         <article class="card dataset">
           <h4><a href="https://www.nuscenes.org/nuscenes">nuScenes</a></h4>
@@ -109,13 +109,13 @@
           <span class="license">CC BY-NC-SA 4.0</span>
         </article>
         <article class="card dataset">
-          <h4><a href="https://github.com/carla-simulator/carla">CARLA</a></h4>
-          <p class="rig">Any rig · plus a chase camera · simulated</p>
-          <p>Exact chase-camera ground truth and closed-loop tap-to-go.</p>
-          <span class="license">MIT code · CC-BY assets</span>
+          <h4><a href="https://www.cvlibs.net/datasets/kitti/">KITTI</a></h4>
+          <p class="rig">2 front color cameras (stereo) · 10 Hz · 64-beam LiDAR · Karlsruhe</p>
+          <p>The narrowest rig: most of the chase view must be generated; links ORV to classic depth and view-synthesis benchmarks.</p>
+          <span class="license">CC BY-NC-SA 3.0</span>
         </article>
       </div>
-      <p class="note">Adapter progress is tracked in the <a href="https://github.com/OpenRealityView/open-reality-view/blob/main/ROADMAP.md">roadmap</a>. Most of these datasets allow non-commercial use only; every released checkpoint states the license of its training data.</p>
+      <p class="note">Adapter progress is tracked in the <a href="https://github.com/OpenRealityView/open-reality-view/blob/main/ROADMAP.md">roadmap</a>. All of these datasets are licensed for non-commercial use only; every released checkpoint states the license of its training data.</p>
     </section>
 
     <section class="section" id="demos">
