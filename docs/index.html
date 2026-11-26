@@ -12,6 +12,7 @@
   <meta name="theme-color" content="#0b1220">
   <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/js/main.js" defer></script>
 </head>
 <body>
   <header class="hero" id="top">
@@ -41,10 +42,15 @@
 
   <main>
     <section class="section" id="teaser">
-      <!-- To publish the teaser, add static/videos/teaser.mp4 and static/images/teaser.jpg, then replace the div with:
-           <video class="media" src="static/videos/teaser.mp4" poster="static/images/teaser.jpg" autoplay muted loop playsinline></video> -->
-      <div class="media placeholder" role="img" aria-label="Teaser video coming soon"><span>Teaser video coming soon</span></div>
-      <p class="caption">Surround cameras in, a free-viewpoint generative view of the scene out, in one feed-forward pass.</p>
+      <div class="mosaic">
+        <video class="media" src="static/videos/nuscenes_0553_chase.mp4" poster="static/images/demos/nuscenes_0553_chase.jpg" autoplay muted loop playsinline></video>
+        <video class="media" src="static/videos/waymo_092_chase.mp4" poster="static/images/demos/waymo_092_chase.jpg" autoplay muted loop playsinline></video>
+        <video class="media" src="static/videos/av2_72cf3ca1_chase.mp4" poster="static/images/demos/av2_72cf3ca1_chase.jpg" autoplay muted loop playsinline></video>
+        <video class="media" src="static/videos/nuplan_2016_chase.mp4" poster="static/images/demos/nuplan_2016_chase.jpg" autoplay muted loop playsinline></video>
+        <video class="media" src="static/videos/ddad_000185_chase.mp4" poster="static/images/demos/ddad_000185_chase.jpg" autoplay muted loop playsinline></video>
+        <video class="media" src="static/videos/waymo_004_chase.mp4" poster="static/images/demos/waymo_004_chase.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <p class="caption">Chase views from a virtual camera above and behind the car on nuScenes, Waymo, Argoverse 2, nuPlan and DDAD, including snow and night driving.</p>
     </section>
 
     <section class="section" id="overview">
@@ -120,12 +126,102 @@
 
     <section class="section" id="demos">
       <h2>Demos</h2>
-      <p>Videos are added as milestones land.</p>
-      <div class="grid two">
-        <figure>
-          <div class="media placeholder"><span>Coming soon</span></div>
-          <figcaption><strong>Chase view.</strong> Feed-forward render of a held-out driving sequence from a virtual chase camera.</figcaption>
+      <p>Front view and chase view of the same clip, two clips per dataset. The chase view comes from a virtual camera above and behind the car.</p>
+      <div class="tabs" role="tablist" aria-label="Dataset">
+        <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="nuscenes">nuScenes</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="nuplan">nuPlan</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="waymo">Waymo</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="av2">Argoverse 2</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="ddad">DDAD</button>
+      </div>
+
+      <div class="tab-panel" role="tabpanel" data-panel="nuscenes">
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/nuscenes_0553_front.mp4" poster="static/images/demos/nuscenes_0553_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/nuscenes_0553_chase.mp4" poster="static/images/demos/nuscenes_0553_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>scene-0553.</strong> Pedestrians on a crosswalk at a busy intersection.</figcaption>
         </figure>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/nuscenes_0629_front.mp4" poster="static/images/demos/nuscenes_0629_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/nuscenes_0629_chase.mp4" poster="static/images/demos/nuscenes_0629_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>scene-0629.</strong> Wet road; a box truck crosses the intersection ahead.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel" role="tabpanel" data-panel="nuplan" hidden>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/nuplan_0839_front.mp4" poster="static/images/demos/nuplan_0839_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/nuplan_0839_chase.mp4" poster="static/images/demos/nuplan_0839_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>OpenScene log-0085, scene-0006.</strong> Wet road at an intersection with oncoming cars.</figcaption>
+        </figure>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/nuplan_2016_front.mp4" poster="static/images/demos/nuplan_2016_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/nuplan_2016_chase.mp4" poster="static/images/demos/nuplan_2016_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>OpenScene log-0146, scene-0002.</strong> Winding road through a park.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel" role="tabpanel" data-panel="waymo" hidden>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/waymo_092_front.mp4" poster="static/images/demos/waymo_092_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/waymo_092_chase.mp4" poster="static/images/demos/waymo_092_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Segment 17694030326265859208.</strong> Busy downtown intersection with pedestrians.</figcaption>
+        </figure>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/waymo_004_front.mp4" poster="static/images/demos/waymo_004_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/waymo_004_chase.mp4" poster="static/images/demos/waymo_004_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Segment 10335539493577748957.</strong> Night drive under orange street lights.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel" role="tabpanel" data-panel="av2" hidden>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/av2_72cf3ca1_front.mp4" poster="static/images/demos/av2_72cf3ca1_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/av2_72cf3ca1_chase.mp4" poster="static/images/demos/av2_72cf3ca1_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Log 72cf3ca1.</strong> Snow on the roadside while passing a trailer truck.</figcaption>
+        </figure>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/av2_27be7d34_front.mp4" poster="static/images/demos/av2_27be7d34_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/av2_27be7d34_chase.mp4" poster="static/images/demos/av2_27be7d34_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Log 27be7d34.</strong> Tree-lined street with crosswalks and parked cars.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel" role="tabpanel" data-panel="ddad" hidden>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/ddad_000155_front.mp4" poster="static/images/demos/ddad_000155_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/ddad_000155_chase.mp4" poster="static/images/demos/ddad_000155_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Scene 000155.</strong> Curved arterial road with queued traffic ahead.</figcaption>
+        </figure>
+        <figure class="pair">
+          <div class="pair-videos">
+            <div class="clip"><video class="media front" src="static/videos/ddad_000185_front.mp4" poster="static/images/demos/ddad_000185_front.jpg" muted loop playsinline preload="none"></video><span class="label">Front view</span></div>
+            <div class="clip"><video class="media" src="static/videos/ddad_000185_chase.mp4" poster="static/images/demos/ddad_000185_chase.jpg" muted loop playsinline preload="none"></video><span class="label">Chase view</span></div>
+          </div>
+          <figcaption><strong>Scene 000185.</strong> Multi-lane road under an elevated guideway.</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="subhead">Coming next</h3>
+      <div class="grid three">
         <figure>
           <div class="media placeholder"><span>Coming soon</span></div>
           <figcaption><strong>Free viewpoint.</strong> Orbit, zoom and top-down views generated from the same camera input.</figcaption>
