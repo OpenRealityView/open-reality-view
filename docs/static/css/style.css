@@ -59,7 +59,20 @@ h1 {
   background-clip: text;
   color: transparent;
 }
-.subtitle { max-width: 760px; margin: 0 auto 30px; color: #334155; font-size: clamp(17px, 2.2vw, 21px); }
+.subtitle { max-width: 760px; margin: 0 auto 24px; color: #334155; font-size: clamp(17px, 2.2vw, 21px); }
+.authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 22px;
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+}
+.authors span { white-space: nowrap; }
+.affiliation { margin: 0 0 28px; }
+.affiliation img { display: inline-block; width: auto; height: 30px; }
 .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .btn {
   display: inline-flex;
