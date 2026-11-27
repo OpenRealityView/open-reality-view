@@ -32,12 +32,12 @@ Models (coming soon) ·
 ## Overview & Method
 
 <p align="center">
-  <img src="docs/static/images/architecture.svg" alt="Architecture: surround cameras, DINO image backbone, 4D foundation model, then three parallel heads: a 3DGS head predicting 3D Gaussians, a MeanFlow head generating the Reality View from any virtual camera, and a planner head predicting the trajectory" width="100%">
+  <img src="docs/static/images/architecture.svg" alt="Architecture: surround cameras, DINO image backbone, 4D foundation model, then three parallel heads: a 4DGS head predicting 4D Gaussians, a MeanFlow head generating the Reality View from any virtual camera, and a planner head predicting the trajectory" width="100%">
 </p>
 
 > With FSD v15, Tesla introduced Reality View: a real-time generative view of the car's surroundings, streamed from a virtual camera above the vehicle and rendered by the same end-to-end network that drives it.
 
-Open Reality View builds this class of system in the open, from public data and open components. Surround-camera video is encoded by a DINO image backbone, and a 4D foundation model fuses the features across cameras and time into one shared scene representation. Three heads read from it in parallel: a 3DGS head predicts 3D Gaussians of the scene, a MeanFlow head generates the Reality View from any virtual camera, and a planner head outputs the driving trajectory. The view and the driving decisions come from the same model.
+Open Reality View builds this class of system in the open, from public data and open components. Surround-camera video is encoded by a DINO image backbone, and a 4D foundation model fuses the features across cameras and time into one shared scene representation. Three heads read from it in parallel: a 4DGS head predicts 4D Gaussians of the scene, a MeanFlow head generates the Reality View from any virtual camera, and a planner head outputs the driving trajectory. The view and the driving decisions come from the same model.
 
 ## Datasets
 

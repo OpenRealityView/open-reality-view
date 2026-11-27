@@ -32,12 +32,12 @@ Bosch Corporate Research
 ## 概览与方法
 
 <p align="center">
-  <img src="docs/static/images/architecture.svg" alt="架构：环视相机、DINO 图像骨干网络、4D 基础模型，然后是三个并行的头：3DGS 头预测 3D 高斯，MeanFlow 头从任意虚拟相机生成 Reality View，规划头输出轨迹" width="100%">
+  <img src="docs/static/images/architecture.svg" alt="架构：环视相机、DINO 图像骨干网络、4D 基础模型，然后是三个并行的头：4DGS 头预测 4D 高斯，MeanFlow 头从任意虚拟相机生成 Reality View，规划头输出轨迹" width="100%">
 </p>
 
 > Tesla 在 FSD v15 中推出了 Reality View：从车辆上方的虚拟相机实时生成周围环境的画面，由驾驶所用的同一个端到端网络渲染。
 
-Open Reality View 用公开数据和开源组件，以开源方式构建同类系统。环视相机视频先由 DINO 图像骨干网络编码，再由 4D 基础模型跨相机、跨时间融合成一个共享的场景表示。三个头并行读取这一表示：3DGS 头预测场景的 3D 高斯，MeanFlow 头从任意虚拟相机生成 Reality View，规划头输出驾驶轨迹。画面和驾驶决策来自同一个模型。
+Open Reality View 用公开数据和开源组件，以开源方式构建同类系统。环视相机视频先由 DINO 图像骨干网络编码，再由 4D 基础模型跨相机、跨时间融合成一个共享的场景表示。三个头并行读取这一表示：4DGS 头预测场景的 4D 高斯，MeanFlow 头从任意虚拟相机生成 Reality View，规划头输出驾驶轨迹。画面和驾驶决策来自同一个模型。
 
 ## 数据集
 
