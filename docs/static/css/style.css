@@ -71,8 +71,10 @@ h1 {
   font-weight: 600;
 }
 .authors span { white-space: nowrap; }
-.affiliation { margin: 0 0 28px; }
+.authors sup, .author-note sup { margin-left: 2px; color: var(--accent); font-size: 0.7em; }
+.affiliation { margin: 0 0 10px; }
 .affiliation img { display: inline-block; width: auto; height: 30px; }
+.author-note { margin: 0 0 28px; color: var(--muted); font-size: 13.5px; }
 .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .btn {
   display: inline-flex;
