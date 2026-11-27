@@ -5,7 +5,7 @@
 **基于环视相机的前馈式生成 3D 驾驶可视化。**<br>
 任意虚拟相机，实时，忠于相机所见。
 
-**Jiang Anqing**<sup>\*†</sup> · **Hai Yang** · **Su Wenliang** · **Nan Li** · **Shuo Wang** · **Yang Chen** · **Sun Hao**<sup>✉</sup>
+**Jiang Anqing**<sup>\*†</sup> · **Hai Yang** · **Wenliang Su** · **Nan Li** · **Shuo Wang** · **Yang Chen** · **Hao Sun**<sup>✉</sup>
 
 Bosch Corporate Research
 

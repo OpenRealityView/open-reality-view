@@ -5,7 +5,7 @@
 **Feed-forward generative 3D driving visualization from surround cameras.**<br>
 Any virtual camera. Real time. Faithful to what the cameras saw.
 
-**Jiang Anqing**<sup>\*†</sup> · **Hai Yang** · **Su Wenliang** · **Nan Li** · **Shuo Wang** · **Yang Chen** · **Sun Hao**<sup>✉</sup>
+**Jiang Anqing**<sup>\*†</sup> · **Hai Yang** · **Wenliang Su** · **Nan Li** · **Shuo Wang** · **Yang Chen** · **Hao Sun**<sup>✉</sup>
 
 Bosch Corporate Research
 
