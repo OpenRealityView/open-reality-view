@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Open Reality View architecture</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="360" rx="16" fill="#ffffff"/>
+
+  <!-- input -->
+  <rect x="24" y="110" width="160" height="140" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <g fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.75">
+    <rect x="38" y="126" width="40" height="24" rx="3"/>
+    <rect x="84" y="126" width="40" height="24" rx="3"/>
+    <rect x="130" y="126" width="40" height="24" rx="3"/>
+    <rect x="38" y="156" width="40" height="24" rx="3"/>
+    <rect x="84" y="156" width="40" height="24" rx="3"/>
+    <rect x="130" y="156" width="40" height="24" rx="3"/>
+  </g>
+  <text x="104" y="210" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">Surround cameras</text>
+  <text x="104" y="230" text-anchor="middle" font-size="12.5" fill="#475569">N views × T frames</text>
+
+  <!-- shared trunk -->
+  <rect x="216" y="130" width="160" height="100" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="296" y="174" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">Image backbone</text>
+  <text x="296" y="196" text-anchor="middle" font-size="12.5" fill="#475569">DINO</text>
+
+  <rect x="408" y="100" width="200" height="160" rx="14" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="508" y="166" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">4D foundation</text>
+  <text x="508" y="187" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">model</text>
+  <text x="508" y="214" text-anchor="middle" font-size="12.5" fill="#475569">shared space-time</text>
+  <text x="508" y="231" text-anchor="middle" font-size="12.5" fill="#475569">scene representation</text>
+
+  <!-- data flow -->
+  <g stroke="#475569" stroke-width="2" fill="none" stroke-linejoin="round">
+    <line x1="186" y1="180" x2="213" y2="180" marker-end="url(#arrow)"/>
+    <line x1="378" y1="180" x2="405" y2="180" marker-end="url(#arrow)"/>
+    <path d="M610 180 H640 M640 70 V290"/>
+    <line x1="640" y1="70" x2="675" y2="70" marker-end="url(#arrow)"/>
+    <line x1="640" y1="180" x2="675" y2="180" marker-end="url(#arrow)"/>
+    <line x1="640" y1="290" x2="675" y2="290" marker-end="url(#arrow)"/>
+    <line x1="880" y1="70" x2="927" y2="70" marker-end="url(#arrow)"/>
+    <line x1="880" y1="180" x2="927" y2="180" marker-end="url(#arrow)"/>
+    <line x1="880" y1="290" x2="927" y2="290" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- parallel heads -->
+  <g stroke-width="1.5">
+    <rect x="678" y="35" width="200" height="70" rx="12" fill="#dbeafe" stroke="#2563eb"/>
+    <rect x="678" y="145" width="200" height="70" rx="12" fill="#ede9fe" stroke="#7c3aed"/>
+    <rect x="678" y="255" width="200" height="70" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+  </g>
+  <g text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">
+    <text x="778" y="66">3DGS head</text>
+    <text x="778" y="176">MeanFlow head</text>
+    <text x="778" y="286">Planner head</text>
+  </g>
+  <g text-anchor="middle" font-size="12.5" fill="#475569">
+    <text x="778" y="88">Gaussian parameters</text>
+    <text x="778" y="198">flow-based generation</text>
+    <text x="778" y="308">motion planning</text>
+  </g>
+
+  <!-- outputs -->
+  <rect x="930" y="35" width="246" height="70" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="930" y="145" width="246" height="70" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+  <rect x="930" y="255" width="246" height="70" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <g text-anchor="middle" fill="#0f172a">
+    <text x="1053" y="66" font-size="15" font-weight="600">3D Gaussians</text>
+    <text x="1053" y="177" font-size="17" font-weight="700" fill="#5b21b6">Reality View</text>
+    <text x="1053" y="286" font-size="15" font-weight="600">Trajectory</text>
+  </g>
+  <g text-anchor="middle" font-size="12.5" fill="#475569">
+    <text x="1053" y="88">scene geometry and appearance</text>
+    <text x="1053" y="198">from any virtual camera</text>
+    <text x="1053" y="308">driving plan for the ego car</text>
+  </g>
+</svg>
