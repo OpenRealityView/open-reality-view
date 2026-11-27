@@ -1,33 +1,13 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-build/
-dist/
+# Local environment
 .venv/
 venv/
-.pytest_cache/
-.ruff_cache/
-.ipynb_checkpoints/
+__pycache__/
 
 # Editors / OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-
-# Data, weights and experiment outputs (root-anchored so orv/data/ stays tracked)
-/data/
-/outputs/
-/runs/
-/wandb/
-/checkpoints/
-*.pt
-*.pth
-*.ckpt
-*.safetensors
-*.onnx
-*.engine
 
 # Raw videos stay out of git; site videos live in docs/static/videos/
 *.mp4
