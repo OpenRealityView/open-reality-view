@@ -74,7 +74,15 @@ h1 {
 .authors sup, .author-note sup { margin-left: 2px; color: var(--accent); font-size: 0.7em; }
 .affiliation { margin: 0 0 10px; }
 .affiliation img { display: inline-block; width: auto; height: 30px; }
-.author-note { margin: 0 0 28px; color: var(--muted); font-size: 13.5px; }
+.author-note {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 18px;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 13.5px;
+}
 .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .btn {
   display: inline-flex;
